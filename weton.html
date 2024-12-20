@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weton Jodoh Calculator</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script>
+        // Data neptu hari
+        const neptuHari = {
+            "Minggu": 5,
+            "Senin": 4,
+            ....
+        };
+
+        // Data neptu pasaran
+        const neptuPasaran = {
+            "Legi": 5,
+            "Pahing": 9,
+            ....
+        };
+
+        // Data hasil
+        const hasil = {
+            1: "Pegat",
+            2: "Ratu",
+            ....
+        };
+
+        // Data tafsir
+      const tafsir = { "Pegat": "Pasangan yang mengalami perselisihan seringkali menghadapi tantangan di bidang ekonomi, kekuasaan, dan setidaknya adanya potensi perselingkuhan, yang dapat menjadi pemicu bagi kemungkinan perceraian atau pertikaian serius dalam hubungan mereka. Tantangan finansial, dinamika kekuasaan yang kompleks, dan potensi ketidaksetiaan bisa menjadi faktor-faktor yang memperumit hubungan, menyebabkan ketegangan yang signifikan dan memunculkan kemungkinan terjadinya perceraian atau pertengkaran yang serius di antara pasangan. Dalam situasi seperti ini, komunikasi terbuka dan usaha bersama menjadi kunci untuk mengatasi kesulitan dan membangun fondasi yang lebih kuat untuk hubungan mereka.", "Ratu": "Weton jodoh ini mencerminkan takdir yang kuat, mengindikasikan bahwa pasangan ini telah ditakdirkan untuk bersama. Mereka tidak hanya akan saling menghargai, tetapi juga mendapatkan penghargaan dan penghormatan dari lingkungan sekitar. Hubungan ini diyakini memiliki kekuatan yang mendalam, menciptakan fondasi yang solid untuk kehidupan bersama yang penuh rasa hormat dan pengakuan dari orang-orang di sekitarnya.", "Jodoh":"Weton ini menunjukkan kecocokan yang sangat kuat dan jodoh yang nyata. Kedua belah pihak di dalamnya memiliki kemampuan untuk sepenuhnya menerima semua kelebihan dan kekurangan satu sama lain. Tak hanya itu, jodoh ini membawa harapan bahwa mereka akan hidup harmonis dan damai bersama hingga usia tua. Dalam keseluruhan, weton ini mencerminkan potensi hubungan yang penuh dengan kebahagiaan, toleransi, dan keberlanjutan hingga masa senja kehidupan.", "Topo":"Meskipun pasangan topo menghadapi tantangan ekonomi di awal pernikahan, dedikasi dan usaha mereka untuk saling memahami menjadi kunci menuju akhir yang bahagia. Ramalan menunjukkan bahwa masalah ekonomi mungkin menjadi cobaan di awal, tetapi dengan kehadiran anak dan perjalanan panjang pernikahan, mereka diperkirakan akan mencapai kehidupan pernikahan yang sukses dan penuh kebahagiaan. Keberanian dan ketekunan dalam mengatasi kesulitan awal diyakini akan membawa mereka ke arah yang positif, membentuk dasar yang kokoh untuk hidup bersama yang penuh kebahagiaan.", "Tinari":"Pasangan ini diprediksi akan menemukan kebahagiaan yang berlimpah, dengan anugerah kemudahan dalam mencari rezeki. Ramalan menunjukkan bahwa mereka akan selalu diberikan kelancaran dalam menghadapi segala masalah yang mungkin muncul di kehidupan mereka. Keberuntungan tampaknya menyertai perjalanan mereka, memberikan fondasi yang stabil untuk kebahagiaan dan kesuksesan bersama.", "Padu":"Meskipun pasangan ini sering menghadapi perselisihan dalam perjalanan hidup berumah tangga, harmoni rumah tangga mereka tidak akan tergoyahkan hingga pada titik perceraian. Perselisihan ini cenderung dipicu oleh hal-hal sepele, namun kekuatan padu dan kesatuan di antara mereka memungkinkan mereka untuk mengatasi tantangan tersebut tanpa harus merusak keberlangsungan hubungan. Dalam kenyataannya, perselisihan ini bisa menjadi bagian normal dari kehidupan berumah tangga, dan kemampuan pasangan untuk tetap solid melalui perbedaan pendapat akan memperkuat ikatan mereka seiring berjalannya waktu.", "Sujanan": "Pasangan ini mungkin akan sering dihadapkan pada tantangan perselingkuhan, yang dapat melibatkan salah satu pihak, baik pria maupun perempuan. Tantangan ini memungkinkan mereka untuk menguji kekuatan hubungan mereka dan menuntut keterbukaan, kejujuran, dan komunikasi yang mendalam agar dapat mengatasi potensi permasalahan tersebut. Kemampuan untuk saling memahami dan bekerja sama dalam menangani perselingkuhan dapat menjadi kunci penting untuk menjaga keutuhan hubungan mereka.", "Pesthi":"Dalam perjalanan kehidupan berumah tangga, pasangan ini diprediksi akan hidup dalam suasana yang rukun, tentram, damai, dan langgeng hingga usia tua. Meskipun dihadapkan pada berbagai masalah, keharmonisan keduanya diyakini tidak akan tergoyahkan dan tetap kokoh dalam membangun fondasi rumah tangga yang kukuh. Keberanian untuk mengatasi tantangan bersama-sama dan kemampuan untuk memelihara hubungan yang sehat di tengah kesulitan menjadi faktor utama yang akan menjaga keharmonisan pasangan ini sepanjang perjalanan hidup mereka bersama." };
+
+        // Fungsi untuk menghitung neptu berdasarkan tanggal lahir
+        function calculateNeptu(date) {
+            const daysSinceEpoch = Math.floor(new Date(date).getTime() / (1000 * 60 * 60 * 24));
+            const weekday = new Date(date).getDay();
+            const weekdayName = Object.keys(neptuHari)[weekday];
+            const pasaran = Object.keys(neptuPasaran);
+            const pasaranName = pasaran[daysSinceEpoch % 5];
+            return neptuHari[weekdayName] + neptuPasaran[pasaranName];
+        }
+
+        // Fungsi utama untuk menghitung weton jodoh
+        function calculateWetonJodoh() {
+            const birthdateMale = document.getElementById("birthdateMale").value;
+            const birthdateFemale = document.getElementById("birthdateFemale").value;
+
+            if (!birthdateMale || !birthdateFemale) {
+                alert("Mohon isi tanggal lahir untuk kedua mempelai!");
+                return;
+            }
+
+            const neptuMale = calculateNeptu(birthdateMale);
+            const neptuFemale = calculateNeptu(birthdateFemale);
+            const totalNeptu = neptuMale + neptuFemale;
+
+            document.getElementById("result").textContent = hasil[totalNeptu % 8 || 8];
+            document.getElementById("analysis").textContent = tafsir[hasil[totalNeptu % 8 || 8]];
+        }
+    </script>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center">Weton Jodoh Calculator</h1>
+        <div class="card mx-auto mt-4" style="max-width: 600px;">
+            <div class="card-body">
+                <form onsubmit="event.preventDefault(); calculateWetonJodoh();">
+                    <div class="form-group">
+                        <label for="birthdateMale">Tanggal Lahir Mempelai Pria:</label>
+                        <input type="date" id="birthdateMale" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="birthdateFemale">Tanggal Lahir Mempelai Wanita:</label>
+                        <input type="date" id="birthdateFemale" class="form-control" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block">Hitung</button>
+                </form>
+                <div class="mt-4 text-center">
+                    <h2 id="result" class="fs-4 text-center"></h2>
+                    <p id="analysis" class="fs-4 text-center"></p>
+                </div>
+            </div>
+        </div>
+        <div class="mt-5 text-center">
+            <p class="text-muted">Dibuat oleh Oktavia Citra pada 13 Desember 2024</p>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+
