@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Data Anggota</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .modal-header {
+            background-color: #007bff;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">Form Data Anggota</h1>
+        
+        <button class="btn btn-success mb-3" data-bs-toggle="modal" data-bs-target="#addMemberModal">Tambah Anggota</button>
+        <button class="btn btn-primary mb-3" onclick="downloadCSV()">Simpan sebagai CSV</button>
+
+        <table class="table table-bordered">
+            <thead class="table-primary">
+                <tr>
+                    <th>No</th>
+                    <th>Nama</th>
+                    <th>No. Handphone</th>
+                    <th>Alamat</th>
+                    <th>Aksi</th>
+                </tr>
+            </thead>
+            <tbody id="memberTable">
+                <!-- Data akan ditambahkan secara dinamis -->
+            </tbody>
+        </table>
+
+        <div class="mt-5 text-center">
+            <p class="text-muted">Dibuat oleh Oktavia Citra pada 10 Januari 2024</p>
+        </div>
+    </div>
+
+    <!-- Modal Tambah/Edit Anggota -->
+    <div class="modal fade" id="addMemberModal" tabindex="-1" aria-labelledby="addMemberModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addMemberModalLabel">Tambah Anggota</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="memberForm">
+                        <input type="hidden" id="memberIndex">
+                        <div class="mb-3">
+                            <label for="memberName" class="form-label">Nama</label>
+                            <input type="text" class="form-control" id="memberName" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="memberPhone" class="form-label">No. Handphone</label>
+                            <input type="text" class="form-control" id="memberPhone" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="memberAddress" class="form-label">Alamat</label>
+                            <textarea class="form-control" id="memberAddress" rows="3" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Simpan</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let members = [];
+
+        const memberTable = document.getElementById("memberTable");
+        const memberForm = document.getElementById("memberForm");
+        const memberName = document.getElementById("memberName");
+        const memberPhone = document.getElementById("memberPhone");
+        const memberAddress = document.getElementById("memberAddress");
+        const memberIndex = document.getElementById("memberIndex");
+
+        // Render data anggota
+        function renderTable() {
+            memberTable.innerHTML = "";
+            members.forEach((member, index) => {
+                const row = document.createElement("tr");
+                row.innerHTML = `
+                    <td>${index + 1}</td>
+                    <td>${member.name}</td>
+                    <td>${member.phone}</td>
+                    <td>${member.address}</td>
+                    <td>
+                        <button class="btn btn-warning btn-sm" onclick="editMember(${index})">Edit</button>
+                        <button class="btn btn-danger btn-sm" onclick="deleteMember(${index})">Hapus</button>
+                    </td>
+                `;
+                memberTable.appendChild(row);
+            });
+        }
+
+        // Tambah/Update anggota
+        memberForm.addEventListener("submit", (e) => {
+            e.preventDefault();
+
+            ...
+
+            const modal = bootstrap.Modal.getInstance(document.getElementById("addMemberModal"));
+            modal.hide();
+            renderTable();
+        });
+
+        // Edit anggota
+        function editMember(index) {
+            ...
+
+            const modal = new bootstrap.Modal(document.getElementById("addMemberModal"));
+            modal.show();
+        }
+
+        // Hapus anggota
+        function deleteMember(index) {
+            ...
+        }
+
+        // Download data sebagai CSV
+        function downloadCSV() {
+            ...
+
+            link.click();
+            document.body.removeChild(link);
+        }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+
