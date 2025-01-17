@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tic Tac Toe</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .game-board {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 5px;
+            width: 300px;
+            margin: 20px auto;
+        }
+        .cell {
+            width: 100px;
+            height: 100px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2rem;
+            font-weight: bold;
+            border: 2px solid #007bff;
+            cursor: pointer;
+            background-color: white;
+        }
+        .cell.taken {
+            pointer-events: none;
+        }
+        .status {
+            text-align: center;
+            font-size: 1.5rem;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container text-center">
+        <h1 class="my-4">Tic Tac Toe</h1>
+        <div id="gameBoard" class="game-board">
+            <!-- Cells will be generated dynamically -->
+        </div>
+        <div id="status" class="status"></div>
+        <button id="resetButton" class="btn btn-primary mt-3">Reset Game</button>
+    </div>
+
+    <script>
+        const gameBoard = document.getElementById('gameBoard');
+        const statusDiv = document.getElementById('status');
+        const resetButton = document.getElementById('resetButton');
+
+        let board = Array(9).fill(null);
+        let currentPlayer = 'X';
+        let isGameOver = false;
+
+        // Initialize the game board
+        function initGame() {
+            ...
+        }
+
+        // Handle cell click
+        function handleCellClick(e) {
+            const index = e.target.dataset.index;
+
+            if (board[index] || isGameOver) return;
+
+            board[index] = currentPlayer;
+            e.target.textContent = currentPlayer;
+            e.target.classList.add('taken');
+
+            if (checkWinner()) {
+                statusDiv.textContent = `Pemenang: ${currentPlayer}`;
+                isGameOver = true;
+                return;
+            }
+
+            if (board.every(cell => cell)) {
+                statusDiv.textContent = 'Permainan Seri!';
+                isGameOver = true;
+                return;
+            }
+
+            currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
+            statusDiv.textContent = `Giliran: ${currentPlayer}`;
+        }
+
+        // Check for a winner
+        function checkWinner() {
+            ...
+        }
+
+        // Reset the game
+        resetButton.addEventListener('click', initGame);
+
+        // Start the game
+        initGame();
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
