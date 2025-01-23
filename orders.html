@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kalkulator Penjumlah Produk</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center">Kalkulator Penjumlah Produk</h1>
+
+        <!-- Tabel Produk -->
+        <div class="mt-4">
+            <h2>Daftar Produk</h2>
+            <table class="table table-bordered">
+                <thead class="table-dark">
+                    <tr>
+                        <th>#</th>
+                        <th>Nama Produk</th>
+                        <th>Harga</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+                <tbody id="productTable">
+                    <!-- Data Produk akan diisi melalui JavaScript -->
+                </tbody>
+            </table>
+            <button class="btn btn-primary" onclick="addProduct()">Tambah Produk</button>
+        </div>
+
+        <!-- Tabel Pemesanan -->
+        <div class="mt-4">
+            <h2>Daftar Pemesanan</h2>
+            <table class="table table-bordered">
+                <thead class="table-dark">
+                    <tr>
+                        <th>#</th>
+                        <th>Nama Produk</th>
+                        <th>Harga</th>
+                        <th>Jumlah</th>
+                        <th>Total</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+                <tbody id="orderTable">
+                    <!-- Data Pemesanan akan diisi melalui JavaScript -->
+                </tbody>
+            </table>
+            <div class="text-end">
+                <h3 id="grandTotal">Total Keseluruhan: Rp 0</h3>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let products = [];
+        let orders = [];
+
+        function addProduct() {
+            ...
+        }
+
+        function renderProducts() {
+            const productTable = document.getElementById('productTable');
+            productTable.innerHTML = '';
+            products.forEach((product, index) => {
+                productTable.innerHTML += `
+                    <tr>
+                        <td>${index + 1}</td>
+                        <td>${product.name}</td>
+                        <td>Rp ${product.price.toLocaleString()}</td>
+                        <td><button class="btn btn-success btn-sm" onclick="addToOrder(${index})">Pesan</button></td>
+                    </tr>
+                `;
+            });
+        }
+
+        function addToOrder(productIndex) {
+            ...
+        }
+
+        function renderOrders() {
+            const orderTable = document.getElementById('orderTable');
+            const grandTotalElement = document.getElementById('grandTotal');
+            orderTable.innerHTML = '';
+            let grandTotal = 0;
+
+            orders.forEach((order, index) => {
+                grandTotal += order.total;
+                orderTable.innerHTML += `
+                    <tr>
+                        <td>${index + 1}</td>
+                        <td>${order.name}</td>
+                        <td>Rp ${order.price.toLocaleString()}</td>
+                        <td>${order.quantity}</td>
+                        <td>Rp ${order.total.toLocaleString()}</td>
+                        <td><button class="btn btn-danger btn-sm" onclick="removeOrder(${index})">Hapus</button></td>
+                    </tr>
+                `;
+            });
+
+            grandTotalElement.textContent = `Total Keseluruhan: Rp ${grandTotal.toLocaleString()}`;
+        }
+
+        function removeOrder(orderIndex) {
+            ...
+        }
+    </script>
+</body>
+</html>
